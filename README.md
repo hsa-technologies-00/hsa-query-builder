@@ -1,7 +1,3 @@
-Here’s a comprehensive `README.md` file for your `@hsa-technologies-00/hsa-query-builder` package. It follows best practices for documentation and includes all the necessary sections to help users understand and use your package effectively.
-
----
-
 # @hsa-technologies-00/hsa-query-builder
 
 ![License](https://img.shields.io/npm/l/@hsa-technologies-00/hsa-query-buildr)
