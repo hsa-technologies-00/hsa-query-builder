@@ -1,6 +1,6 @@
 {
   "name": "@hsa-technologies-00/hsa-query-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MongoDB query builder module for hsa-technologies-00",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
