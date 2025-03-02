@@ -44,9 +44,11 @@ class MongoQuery {
     this.build();
   }
 
-  build(): void {
+  build(): MongoQuery {
     this._buildFilterQuery();
     this._buildQueryOptions();
+
+    return this;
   }
 
   private _buildFilterQuery(): void {
