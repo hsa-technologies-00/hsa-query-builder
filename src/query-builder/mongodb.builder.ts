@@ -19,8 +19,8 @@ class MongoQuery {
   private queryOptions: QueryOptions = {
     page: 1,
     limit: 10,
-    select: '',
-    sort: '',
+    select: undefined,
+    sort: undefined,
   };
   private operatorMap: OperatorMap = {
     or: '$or',
