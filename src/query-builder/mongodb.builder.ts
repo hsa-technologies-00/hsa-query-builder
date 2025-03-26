@@ -1,4 +1,5 @@
-import { FilterQuery, QueryOptions } from 'mongoose';
+import { FilterQuery, PaginateOptions } from 'mongoose';
+import _ from 'mongoose-paginate-v2';
 
 type QueryParams = {
   [key: string]: any;
@@ -16,7 +17,7 @@ class MongoQuery {
   private queryParams: QueryParams;
   private searchFields: string[];
   private filterQuery: FilterQuery<any> = {};
-  private queryOptions: QueryOptions = {
+  private queryOptions: PaginateOptions = {
     page: 1,
     limit: 10,
     select: undefined,
@@ -138,7 +139,7 @@ class MongoQuery {
     return this.filterQuery;
   }
 
-  getQueryOptions(): QueryOptions {
+  getQueryOptions(): PaginateOptions {
     return this.queryOptions;
   }
 }
