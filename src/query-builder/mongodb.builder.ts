@@ -39,6 +39,9 @@ class MongoQuery {
     regex: '$regex',
   };
 
+  // Fields that should be excluded from filter query
+  private readonly excludedFilterFields = ['page', 'limit', 'select', 'sort', 'clientSearch'];
+
   constructor(queryParams: QueryParams, options: MongoQueryOptions = {}) {
     this.queryParams = queryParams;
     this.searchFields = options.searchFields || [];
@@ -53,17 +56,19 @@ class MongoQuery {
   }
 
   private _buildFilterQuery(): void {
-    const { search, ...filters } = this.queryParams;
+    const { clientSearch, ...filters } = this.queryParams;
 
     // Handle search functionality
-    if (search && this.searchFields.length > 0) {
+    if (clientSearch && this.searchFields.length > 0) {
       this.filterQuery.$or = this.searchFields.map((field) => ({
-        [field]: { $regex: search, $options: 'i' },
+        [field]: { $regex: clientSearch, $options: 'i' },
       }));
     }
 
-    // Handle other filters
+    // Handle other filters, excluding pagination and sorting fields
     Object.keys(filters).forEach((key) => {
+      if (this.excludedFilterFields.includes(key)) return;
+
       const value = filters[key];
       if (value !== undefined && value !== null && value !== '') {
         this._parseFilter(key, value);
@@ -119,11 +124,11 @@ class MongoQuery {
     const { page, limit, select, sort } = this.queryParams;
 
     if (page) {
-      this.queryOptions.page = parseInt(page, 10);
+      this.queryOptions.page = parseInt(page.toString(), 10);
     }
 
     if (limit) {
-      this.queryOptions.limit = parseInt(limit, 10);
+      this.queryOptions.limit = parseInt(limit.toString(), 10);
     }
 
     if (select) {
